@@ -17,11 +17,12 @@ public class ProductRepository {
 
     public Product findById(int id) { return products.get(id); }
 
-    public void save(Product product) {
+    public Product save(Product product) {
         products.add(product);
+        return product;
     }
 
-    public void update(Product product) {
+    public Product update(Product product) {
         int index = products.indexOf(product);
 
         Product updatetedProduct = new Product();
@@ -32,9 +33,10 @@ public class ProductRepository {
         updatetedProduct.setStock(product.getStock());
 
         products.set(index, updatetedProduct);
+        return updatetedProduct;
     }
 
-    public void delete(int id) {
+    public void deleteById(int id) {
         /*
             for (Product product : products) {
                 if (product.getId() == id) {
