@@ -15,25 +15,48 @@ public class ProductRepository {
 
     public List<Product> findAll() { return products; }
 
-    public Product findById(int id) { return products.get(id); }
+    public Product findById(int id) {
+
+        /*
+            for (Product product : products) {
+                if (product != null && product.getId() == id) {
+                    return product;
+                }
+            }
+         */
+
+        return products.stream()
+                .filter(
+                        product -> product.getId() == id
+                ).findFirst().orElseThrow();
+    }
 
     public Product save(Product product) {
         products.add(product);
         return product;
     }
 
-    public Product update(Product product) {
-        int index = products.indexOf(product);
+    public Product update(Product newProduct) {
 
-        Product updatetedProduct = new Product();
-        updatetedProduct.setId(product.getId());
-        updatetedProduct.setName(product.getName());
-        updatetedProduct.setPrice(product.getPrice());
-        updatetedProduct.setDescription(product.getDescription());
-        updatetedProduct.setStock(product.getStock());
+        if (newProduct != null) {
+            int index = products.stream().filter(
+                    product -> product.equals(newProduct)
+                ).findFirst().hashCode();
 
-        products.set(index, updatetedProduct);
-        return updatetedProduct;
+            Product updatetedProduct = new Product();
+            updatetedProduct.setId(newProduct.getId());
+            updatetedProduct.setName(newProduct.getName());
+            updatetedProduct.setPrice(newProduct.getPrice());
+            updatetedProduct.setDescription(newProduct.getDescription());
+            updatetedProduct.setStock(newProduct.getStock());
+
+            products.set(index, updatetedProduct);
+            return updatetedProduct;
+        }
+        else {
+            return null;
+        }
+
     }
 
     public void deleteById(int id) {
