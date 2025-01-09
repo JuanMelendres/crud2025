@@ -1,4 +1,4 @@
-package com.coursejjjm.simplecrud.model;
+package com.coursejjjm.simplecrud.model.product;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,4 +13,5 @@ public class Product {
     private String description;
     private double price;
     private int stock;
+    private String category;
 }
