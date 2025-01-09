@@ -1,6 +1,6 @@
 package com.coursejjjm.simplecrud.repository;
 
-import com.coursejjjm.simplecrud.model.Product;
+import com.coursejjjm.simplecrud.model.product.Product;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
