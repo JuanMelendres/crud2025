@@ -1,8 +1,9 @@
 package com.coursejjjm.simplecrud.controller;
 
-import com.coursejjjm.simplecrud.model.Product;
+import com.coursejjjm.simplecrud.model.product.Product;
 import com.coursejjjm.simplecrud.service.ProductServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -72,11 +73,23 @@ public class ProductController {
         try{
             productService.deleteById(id);
             log.info("Product deleted: {}", id);
-            return ResponseEntity.ok().body(true);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(true);
         } catch (Exception e) {
             log.error("Error deleting product: {}", e.getMessage());
             return ResponseEntity.badRequest().build();
         }
     }
+
+   @PostMapping("/random")
+    public ResponseEntity<Product> createRandomProduct() {
+        try{
+            Product product = productService.createRandmProduct();
+            log.info("New random product created: {}", product);
+            return ResponseEntity.status(HttpStatus.CREATED).body(product);
+        } catch (Exception e) {
+            log.error("Error creating random product: {}", e.getMessage());
+            return ResponseEntity.badRequest().build();
+        }
+   }
 
 }
